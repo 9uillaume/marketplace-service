@@ -1,0 +1,8 @@
+.idea/
+.mypy_cache/
+.pdm.toml
+.pytest_cache/
+__pypackages__/
+**/__pycache__/
+db/.pgdata
+.vscode
