@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "marketplace.common",
     "item",
+    "django_fsm",
 ]
 
 MIDDLEWARE = [
