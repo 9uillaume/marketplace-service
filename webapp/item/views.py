@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 
@@ -17,6 +18,13 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    @action(detail=False, methods=["GET"])
+    def accepted(self, request):
+        # Return only accepted products
+        queryset = self.get_queryset().filter(state="accepted")
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def move_to_new(self, request, pk=None):
         product = self.get_object()
