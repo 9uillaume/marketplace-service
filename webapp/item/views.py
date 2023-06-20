@@ -38,6 +38,13 @@ class ProductViewSet(viewsets.ModelViewSet):
                 product.reject()
                 product.save()
 
+                # Send email notification to owner
+                subject = f"Product State Change: {product.title}"
+                message = f"Dear {product.owner.username},\n\nYour product {product.title} has been rejected."
+                send_mail(
+                    subject, message, "admin@marketplace.com", [product.owner.email]
+                )
+
                 return Response({"detail": "Product rejected."})
             else:
                 return Response(
@@ -56,6 +63,14 @@ class ProductViewSet(viewsets.ModelViewSet):
             if request.user.is_staff:
                 product.ban()
                 product.save()
+
+                # Send email notification to owner
+                subject = f"Product State Change: {product.title}"
+                message = f"Dear {product.owner.username},\n\nYour product {product.title} has been banned."
+                send_mail(
+                    subject, message, "admin@marketplace.com", [product.owner.email]
+                )
+
                 return Response({"detail": "Product banned."})
             else:
                 return Response(
@@ -74,6 +89,14 @@ class ProductViewSet(viewsets.ModelViewSet):
             if request.user.is_staff:
                 product.accept()
                 product.save()
+
+                # Send email notification to owner
+                subject = f"Product State Change: {product.title}"
+                message = f"Dear {product.owner.username},\n\nYour product {product.title} has been accepted."
+                send_mail(
+                    subject, message, "admin@marketplace.com", [product.owner.email]
+                )
+
                 return Response({"detail": "Product accepted."})
             else:
                 return Response(
