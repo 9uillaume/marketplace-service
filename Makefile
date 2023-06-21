@@ -16,7 +16,7 @@ down:
 	docker-compose down
 
 test: dev-env
-	docker-compose run --rm webapp pdm run python manage.py test --settings=settings.testing
+	docker-compose run --rm webapp pdm run python manage.py test --settings=settings.dev
 	docker-compose down
 
 rm:
