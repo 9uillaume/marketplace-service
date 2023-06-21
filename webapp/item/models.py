@@ -59,15 +59,15 @@ class Product(models.Model):
     def move_to_new(self):
         pass
 
-    @transition(field=state, source="new", target="rejected", conditions=[is_admin])
+    @transition(field=state, source="new", target="rejected")
     def reject(self):
         pass
 
-    @transition(field=state, source="new", target="banned", conditions=[is_admin])
+    @transition(field=state, source="new", target="banned")
     def ban(self):
         pass
 
-    @transition(field=state, source="new", target="accepted", conditions=[is_admin])
+    @transition(field=state, source="new", target="accepted")
     def accept(self):
         pass
 
